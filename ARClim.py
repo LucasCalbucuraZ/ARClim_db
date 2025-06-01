@@ -218,7 +218,7 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
         os.remove(local_path)
 
     #plt.tight_layout()
-    plt.show()
+    st.pyplot(fig)
 
 def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     if season.lower() not in ['summer', 'winter']:
@@ -444,7 +444,7 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
 
     os.remove(path_present)
     os.remove(path_future)
-    plt.show()
+    st.pyplot(fig)
 
 
 # ====================
@@ -471,7 +471,6 @@ if st.button("Mostrar gráfico"):
             plot_present_future(lat, lon, season, variable)
         else:
             plot_delta_present_future(lat, lon, season, variable)
-        st.pyplot()
     except Exception as e:
         st.error(f"Ocurrió un error: {e}")
 
