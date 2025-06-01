@@ -22,20 +22,6 @@ import streamlit as st
 # ====================
 
 def plot_present_future(lat_centro, lon_centro, season, variable):
-    import matplotlib.pyplot as plt
-    import rasterio
-    from rasterio.plot import show
-    import geopandas as gpd
-    import numpy as np
-    from shapely.geometry import box
-    from rasterio.transform import rowcol, xy
-    import cartopy.crs as ccrs
-    import cartopy.feature as cfeature
-    import requests
-    import tempfile
-    import os
-    from matplotlib.cm import ScalarMappable
-    import matplotlib.colors as mcolors
 
     if season.lower() not in ['summer', 'winter']:
         raise ValueError("El argumento 'season' debe ser 'summer' o 'winter'")
@@ -235,21 +221,6 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
     plt.show()
 
 def plot_delta_present_future(lat_centro, lon_centro, season, variable):
-    import matplotlib.pyplot as plt
-    import rasterio
-    from rasterio.plot import show
-    import geopandas as gpd
-    import numpy as np
-    from shapely.geometry import box
-    from rasterio.transform import rowcol, xy
-    import cartopy.crs as ccrs
-    import cartopy.feature as cfeature
-    import requests
-    import tempfile
-    import os
-    from matplotlib.cm import ScalarMappable
-    import matplotlib.colors as mcolors
-
     if season.lower() not in ['summer', 'winter']:
         raise ValueError("El argumento 'season' debe ser 'summer' o 'winter'")
 
