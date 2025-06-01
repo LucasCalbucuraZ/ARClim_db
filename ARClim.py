@@ -141,7 +141,6 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
 
     for ax, (title, tiff_url) in zip(axes, tiff_paths.items()):
         local_path = load_tiff_from_github(tiff_url)
-
         with rasterio.open(local_path) as src:
             data = src.read(1)
             transform = src.transform
@@ -159,6 +158,7 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
 
             img = show(data, transform=transform, ax=ax,
                        cmap=info["cmap"], vmin=info["vmin"], vmax=info["vmax"])
+
 
             gl = ax.gridlines(draw_labels=True, linestyle='--', alpha=0.5)
             gl.top_labels = False
@@ -379,11 +379,9 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     ax.set_extent([lon_min, lon_max, lat_min, lat_max], crs=ccrs.PlateCarree())
     ax.coastlines()
 
-    # Mostrar con show (no devuelve imagen directamente útil para la colorbar)
     show(delta, transform=transform, ax=ax,
         cmap=info["cmap"], vmin=info["vmin"], vmax=info["vmax"])
 
-    # Crear manualmente un ScalarMappable para la barra de color
     norm = mcolors.Normalize(vmin=info["vmin"], vmax=info["vmax"])
     sm = ScalarMappable(norm=norm, cmap=info["cmap"])
     sm.set_array([])
