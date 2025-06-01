@@ -1,4 +1,25 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os
+import requests
+import tempfile
+import numpy as np
+import rasterio
+from rasterio.plot import show
+from rasterio.transform import rowcol, xy
+import geopandas as gpd
+from shapely.geometry import box
+import matplotlib.pyplot as plt
+from matplotlib.cm import ScalarMappable
+import matplotlib.colors as mcolors
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+import streamlit as st
+
+# ====================
+# FUNCIONES DE GRAFICADO
+# ====================
 
 def plot_present_future(lat_centro, lon_centro, season, variable):
     import matplotlib.pyplot as plt
@@ -455,3 +476,33 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     os.remove(path_present)
     os.remove(path_future)
     plt.show()
+
+
+# ====================
+# STREAMLIT INTERFAZ
+# ====================
+
+st.set_page_config(page_title="Cambio Climático", layout="wide")
+
+st.title("Visualización de Cambio Climático ARClim")
+
+lat = st.number_input("Latitud (°S)", min_value=-90.0, max_value=0.0, value=-26.02, step=0.01)
+lon = st.number_input("Longitud (°O)", min_value=-90.0, max_value=0.0, value=-68.88, step=0.01)
+season = st.selectbox("Estación", ["summer", "winter"])
+variable = st.selectbox("Variable", [
+    "mean_temperature", "coldest_day", "coldest_night", "hottest_day", "warmest_night",
+    "vel_mean", "vel_max", "pr_sum", "ps_mean", "hurs_mean"
+])
+
+modo = st.radio("¿Qué deseas visualizar?", ["Presente y Futuro", "Diferencia (Delta)"])
+
+if st.button("Mostrar gráfico"):
+    try:
+        if modo == "Presente y Futuro":
+            plot_present_future(lat, lon, season, variable)
+        else:
+            plot_delta_present_future(lat, lon, season, variable)
+        st.pyplot()
+    except Exception as e:
+        st.error(f"Ocurrió un error: {e}")
+
