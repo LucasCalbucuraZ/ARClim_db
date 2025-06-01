@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#! /usr/bin/env python3
 
 def plot_present_future(lat_centro, lon_centro, season, variable):
     import matplotlib.pyplot as plt
@@ -455,7 +455,3 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     os.remove(path_present)
     os.remove(path_future)
     plt.show()
-
-
-plot_delta_present_future(-26.02, -68.88, season='winter', variable='pr_sum')
-plot_delta_present_future(-26.02, -68.88, season='summer', variable='pr_sum')
