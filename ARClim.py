@@ -131,7 +131,7 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
     gdf_comunas = gpd.read_file("SHP/Comunas/Comunas.shp").to_crs("EPSG:4326")
     gdf_regiones = gpd.read_file("SHP/Regiones/Regional.shp").to_crs("EPSG:4326")
 
-    gdf_comunas = gdf_comunas[gdf_comunas['Region'].str.contains("Atacama", case=False, na=False) | gdf_comunas['Region'].str.contains("Antofagasta", case=False, na=False)]
+    # gdf_comunas = gdf_comunas[gdf_comunas['Region'].str.contains("Atacama", case=False, na=False) | gdf_comunas['Region'].str.contains("Antofagasta", case=False, na=False)]
     gdf_comunas = gdf_comunas[gdf_comunas.intersects(bbox)].copy()
     gdf_regiones = gdf_regiones[gdf_regiones.intersects(bbox)].copy()
 
@@ -365,10 +365,10 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     gdf_regiones = gpd.read_file("SHP/Regiones/Regional.shp").to_crs("EPSG:4326")
 
 
-    gdf_comunas = gdf_comunas[
-        gdf_comunas['Region'].str.contains("Atacama", case=False, na=False) |
-        gdf_comunas['Region'].str.contains("Antofagasta", case=False, na=False)
-    ]
+    #gdf_comunas = gdf_comunas[
+    #    gdf_comunas['Region'].str.contains("Atacama", case=False, na=False) |
+    #    gdf_comunas['Region'].str.contains("Antofagasta", case=False, na=False)
+    #]
     gdf_comunas = gdf_comunas[gdf_comunas.intersects(bbox)].copy()
     gdf_regiones = gdf_regiones[gdf_regiones.intersects(bbox)].copy()
 
