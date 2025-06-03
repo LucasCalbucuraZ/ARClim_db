@@ -453,7 +453,56 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
 app = dash.Dash(__name__)
 server = app.server
 
-app.layout = html.Div([...])  # aquí el layout que ya te pasé
+app.layout = html.Div([
+    html.H1("Visualización de Cambio Climático ARClim"),
+
+    html.Label("Latitud (°S):"),
+    dcc.Input(id="lat", type="number", value=-26.02, min=-90, max=0, step=0.01),
+
+    html.Label("Longitud (°O):"),
+    dcc.Input(id="lon", type="number", value=-68.88, min=-90, max=0, step=0.01),
+
+    html.Label("Estación:"),
+    dcc.Dropdown(
+        id="season",
+        options=[
+            {"label": "Verano (summer)", "value": "summer"},
+            {"label": "Invierno (winter)", "value": "winter"},
+        ],
+        value="winter"
+    ),
+
+    html.Label("Variable:"),
+    dcc.Dropdown(
+        id="variable",
+        options=[
+            {"label": "Temperatura media", "value": "mean_temperature"},
+            {"label": "Día más frío", "value": "coldest_day"},
+            {"label": "Noche más fría", "value": "coldest_night"},
+            {"label": "Día más cálido", "value": "hottest_day"},
+            {"label": "Noche más cálida", "value": "warmest_night"},
+            {"label": "Velocidad viento media", "value": "vel_mean"},
+            {"label": "Velocidad viento máxima", "value": "vel_max"},
+            {"label": "Precipitación acumulada", "value": "pr_sum"},
+            {"label": "Presión media", "value": "ps_mean"},
+            {"label": "Humedad relativa media", "value": "hurs_mean"},
+        ],
+        value="coldest_day"
+    ),
+
+    html.Label("¿Qué deseas visualizar?"),
+    dcc.RadioItems(
+        id="modo",
+        options=[
+            {"label": "Presente y Futuro", "value": "presente"},
+            {"label": "Diferencia (Delta)", "value": "delta"},
+        ],
+        value="presente"
+    ),
+
+    html.Br(),
+    html.Div(id="output-image")
+])
 
 @app.callback(
     Output('output-image', 'children'),
