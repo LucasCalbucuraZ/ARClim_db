@@ -6,5 +6,6 @@ rasterio
 numpy
 pandas
 shapely
+cartopy
 geopandas
 requests
