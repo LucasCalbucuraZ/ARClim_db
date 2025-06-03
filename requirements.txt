@@ -1,8 +1,10 @@
-streamlit
-rasterio
-geopandas
+dash
+plotly
 matplotlib
-cartopy
+gunicorn
+rasterio
 numpy
+pandas
 shapely
+geopandas
 requests
