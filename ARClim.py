@@ -215,9 +215,9 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
 
                 ax.text(
                     label_point.x, label_point.y, row['Comuna'],
-                    fontsize=10, color='black',
+                    fontsize=12, color='black',
                     ha='center', va='bottom',
-                    bbox=dict(facecolor='white', alpha=0.4, edgecolor='none', boxstyle='round,pad=0.2'),
+                    bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round', pad=0.2),
                     zorder=2)
 
             estacional = "Verano extendido (octubre–marzo)" if season == "summer" else "Invierno extendido (abril–septiembre)"
@@ -454,9 +454,9 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
             continue
         ax.text(
             label_point.x, label_point.y, row['Comuna'],
-        fontsize=10, color='black',
+        fontsize=12, color='black',
         ha='center', va='bottom',
-        bbox=dict(facecolor='white', alpha=0.4, edgecolor='none', boxstyle='round,pad=0.2'),
+        bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round',pad=0.2),
         zorder=2)
 
     estacional = "Verano extendido (octubre–marzo)" if season == "summer" else "Invierno extendido (abril–septiembre)"
