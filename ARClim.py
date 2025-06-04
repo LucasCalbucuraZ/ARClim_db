@@ -173,7 +173,8 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
                 f'{abs(lat_centro):.2f}°S, {abs(lon_centro):.2f}°O\n{texto_valor}',
                 fontsize=13,
                 color='black',
-                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3')
+                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3'),
+                zorder=10
             )
 
             for i in range(data.shape[0]):
@@ -402,7 +403,8 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
         f'{abs(lat_centro):.2f}°S, {abs(lon_centro):.2f}°O\n{texto_valor}',
         fontsize=13,
         color='black',
-        bbox=dict(facecolor='white', edgecolor='black', boxstyle='round',pad=0.3)
+        bbox=dict(facecolor='white', edgecolor='black', boxstyle='round',pad=0.3),
+        zorder=10
     )
 
     for i in range(delta.shape[0]):
