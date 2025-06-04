@@ -463,13 +463,21 @@ variable = st.selectbox("Variable", [
     "vel_mean", "vel_max", "pr_sum", "ps_mean", "hurs_mean"
 ])
 
-modo = st.radio("¿Qué deseas visualizar?", ["Presente y Futuro", "Diferencia (Delta)"])
+modo = st.radio("¿Qué deseas visualizar?", [
+    "Presente y Futuro", 
+    "Diferencia (Delta)", 
+    "Todo (Presente, Futuro y Delta)"
+])
 
 if st.button("Mostrar gráfico"):
     try:
         if modo == "Presente y Futuro":
             plot_present_future(lat, lon, season, variable)
-        else:
+        elif modo == "Diferencia (Delta)":
+            plot_delta_present_future(lat, lon, season, variable)
+        elif modo == "Todo (Presente, Futuro y Delta)":
+            plot_present_future(lat, lon, season, variable)
             plot_delta_present_future(lat, lon, season, variable)
     except Exception as e:
         st.error(f"Ocurrió un error: {e}")
+
