@@ -454,7 +454,6 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
 st.set_page_config(page_title="Visualizador ARClim - Explorador de Amenazas", layout="wide")
 
 st.title("Visualizador ARClim - Explorador de Amenazas \n Base de datos climática con grillas de 5 km de resolución y cobertura espacial para todo Chile.")
-st.markdown("---")
 st.markdown("**Desarrollado por:** Lucas Calbucura Zúñiga - [lcalbucura@geoaire.cl](mailto:lcalbucura@geoaire.cl)")
 
 lat = st.number_input("Latitud (°S)", min_value=-90.0, max_value=0.0, value=-26.02, step=0.01)
