@@ -455,7 +455,7 @@ st.set_page_config(page_title="Visualizador ARClim - Explorador de Amenazas", la
 
 st.title("Visualizador ARClim - Explorador de Amenazas \n Base de datos climática con grillas de 5 km de resolución y cobertura espacial para todo Chile.")
 st.markdown("---")
-st.markdown("**Desarrollado por:** Lucas Calbucura Zúñiga" - [lcalbucura@geoaire.cl](mailto:lcalbucura@geoaire.cl)")
+st.markdown("**Desarrollado por:** Lucas Calbucura Zúñiga - [lcalbucura@geoaire.cl](mailto:lcalbucura@geoaire.cl)")
 
 lat = st.number_input("Latitud (°S)", min_value=-90.0, max_value=0.0, value=-26.02, step=0.01)
 lon = st.number_input("Longitud (°O)", min_value=-90.0, max_value=0.0, value=-68.88, step=0.01)
@@ -466,14 +466,12 @@ variable = st.selectbox("Variable", [
 ])
 
 modo = st.radio("¿Qué deseas visualizar?", [
-    "Presente y Futuro", 
-    "Diferencia (Delta)", 
-    "Todo (Presente, Futuro y Delta)"
+    "Presente, Futuro y Diferencia entre ambos (Delta)"
 ])
 
 if st.button("Mostrar gráfico"):
     try:
-        if modo == "Todo (Presente, Futuro y Diferencia entre ambos (Delta)":
+        if modo == "Presente, Futuro y Diferencia entre ambos (Delta)":
             plot_present_future(lat, lon, season, variable)
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
