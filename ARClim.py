@@ -451,9 +451,12 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
 # STREAMLIT INTERFAZ
 # ====================
 
-st.set_page_config(page_title="Cambio Climático", layout="wide")
+st.set_page_config(page_title="Visualizador ARClim - Explorador de Amenazas", layout="wide")
 
-st.title("Visualización de Cambio Climático ARClim")
+st.title("Visualizador ARClim - Explorador de Amenazas \n Base de datos climática con grillas de 5 km de resolución y cobertura espacial para todo Chile.")
+st.markdown("---")
+st.markdown("**Desarrollado por:** Lucas Calbucura Zúñiga")
+st.markdown("📧 Contacto: [lcalbucura@geoaire.cl](mailto:lcalbucura@geoaire.cl)")
 
 lat = st.number_input("Latitud (°S)", min_value=-90.0, max_value=0.0, value=-26.02, step=0.01)
 lon = st.number_input("Longitud (°O)", min_value=-90.0, max_value=0.0, value=-68.88, step=0.01)
@@ -471,13 +474,7 @@ modo = st.radio("¿Qué deseas visualizar?", [
 
 if st.button("Mostrar gráfico"):
     try:
-        if modo == "Presente y Futuro":
-            plot_present_future(lat, lon, season, variable)
-        elif modo == "Diferencia (Delta)":
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col2:
-                plot_delta_present_future(lat, lon, season, variable)
-        elif modo == "Todo (Presente, Futuro y Delta)":
+        if modo == "Todo (Presente, Futuro y Diferencia entre ambos (Delta)":
             plot_present_future(lat, lon, season, variable)
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
