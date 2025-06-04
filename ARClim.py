@@ -90,7 +90,7 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
     # === Bounding box ===
     buffer_lat_norte = 1.0
     buffer_lat_sur = 1.35
-    buffer_lon_este = 0.7
+    buffer_lon_este = 0.9
     buffer_lon_oeste = 2.3
 
     lat_min = lat_centro - buffer_lat_sur
