@@ -206,7 +206,7 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
                     continue
                 ax.text(
                     label_point.x, label_point.y, row['Comuna'],
-                    fontsize=10, color='dimgray',
+                    fontsize=10, color='black',
                     ha='center', va='bottom',
                     bbox=dict(facecolor='white', alpha=0.4, edgecolor='none', boxstyle='round,pad=0.2'),
                     zorder=2)
@@ -438,7 +438,7 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
             continue
         ax.text(
             label_point.x, label_point.y, row['Comuna'],
-        fontsize=10, color='dimgray',
+        fontsize=10, color='black',
         ha='center', va='bottom',
         bbox=dict(facecolor='white', alpha=0.4, edgecolor='none', boxstyle='round,pad=0.2'),
         zorder=2)
