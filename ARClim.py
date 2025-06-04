@@ -373,7 +373,7 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     gdf_regiones = gdf_regiones[gdf_regiones.intersects(bbox)].copy()
 
     # === Plot ===
-    fig, ax = plt.subplots(1, 1, figsize=(6.5, 8), subplot_kw={'projection': ccrs.PlateCarree()})
+    fig, ax = plt.subplots(1, 1, figsize=(9, 8), subplot_kw={'projection': ccrs.PlateCarree()})
     ax.add_feature(cfeature.OCEAN, facecolor='#a6cee3')
     ax.add_feature(cfeature.LAND, facecolor='#e6e1d3')
     ax.set_extent([lon_min, lon_max, lat_min, lat_max], crs=ccrs.PlateCarree())
@@ -474,10 +474,14 @@ if st.button("Mostrar gráfico"):
         if modo == "Presente y Futuro":
             plot_present_future(lat, lon, season, variable)
         elif modo == "Diferencia (Delta)":
-            plot_delta_present_future(lat, lon, season, variable)
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                plot_delta_present_future(lat, lon, season, variable)
         elif modo == "Todo (Presente, Futuro y Delta)":
             plot_present_future(lat, lon, season, variable)
-            plot_delta_present_future(lat, lon, season, variable)
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                plot_delta_present_future(lat, lon, season, variable)
     except Exception as e:
         st.error(f"Ocurrió un error: {e}")
 
