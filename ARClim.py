@@ -6,7 +6,6 @@ import requests
 import tempfile
 import numpy as np
 import rasterio
-from rasterio.plot import show
 from rasterio.transform import rowcol, xy
 import geopandas as gpd
 from shapely.geometry import box
@@ -84,19 +83,25 @@ def plot_tiff_map(lat, lon, season, variable, periodo):
         transform = src.transform
         fila, columna = rowcol(transform, lon, lat)
         valor = data[fila, columna] if np.isfinite(data[fila, columna]) else np.nan
-        x_min, y_max = xy(transform, fila, columna, offset='ul')
-        x_max, y_min = xy(transform, fila, columna, offset='lr')
 
     fig, ax = plt.subplots(figsize=(8.5, 9), subplot_kw={'projection': ccrs.PlateCarree()})
     ax.add_feature(cfeature.OCEAN, facecolor='#a6cee3')
     ax.add_feature(cfeature.LAND, facecolor='#e6e1d3')
     ax.set_extent([bbox.bounds[0], bbox.bounds[2], bbox.bounds[1], bbox.bounds[3]], crs=ccrs.PlateCarree())
     ax.coastlines()
-    
-    img = show(data, transform=transform, ax=ax, cmap=info["cmap"], vmin=info["vmin"], vmax=info["vmax"])
-    cbar = plt.colorbar(img.get_images()[0], ax=ax, orientation='vertical', shrink=0.6, pad=0.02)
-    cbar.set_label(info["titulo"])
 
+    img = ax.imshow(
+        data,
+        extent=(bbox.bounds[0], bbox.bounds[2], bbox.bounds[1], bbox.bounds[3]),
+        origin='upper',
+        cmap=info["cmap"],
+        vmin=info["vmin"],
+        vmax=info["vmax"],
+        transform=ccrs.PlateCarree()
+    )
+
+    cbar = plt.colorbar(img, ax=ax, orientation='vertical', shrink=0.6, pad=0.02)
+    cbar.set_label(info["titulo"])
     ax.set_title(f"{info['titulo']} - {'Presente' if periodo == 'present' else 'Futuro'}")
     ax.text(lon - 0.4, lat + 0.1, f'{valor:.1f} {info["unidad"]}', fontsize=13, bbox=dict(facecolor='white'))
 
@@ -127,8 +132,6 @@ def plot_delta_present_future(lat, lon, season, variable):
         delta = data_f - data_p
         fila, columna = rowcol(transform, lon, lat)
         valor = delta[fila, columna] if np.isfinite(delta[fila, columna]) else np.nan
-        x_min, y_max = xy(transform, fila, columna, offset='ul')
-        x_max, y_min = xy(transform, fila, columna, offset='lr')
 
     fig, ax = plt.subplots(figsize=(8.5, 9), subplot_kw={'projection': ccrs.PlateCarree()})
     ax.add_feature(cfeature.OCEAN, facecolor='#a6cee3')
@@ -136,10 +139,18 @@ def plot_delta_present_future(lat, lon, season, variable):
     ax.set_extent([bbox.bounds[0], bbox.bounds[2], bbox.bounds[1], bbox.bounds[3]], crs=ccrs.PlateCarree())
     ax.coastlines()
 
-    img = ax.imshow(delta, transform=transform, cmap='RdBu_r', extent=(bbox.bounds[0], bbox.bounds[2], bbox.bounds[1], bbox.bounds[3]), origin='upper')
+    img = ax.imshow(
+        delta,
+        extent=(bbox.bounds[0], bbox.bounds[2], bbox.bounds[1], bbox.bounds[3]),
+        origin='upper',
+        cmap='RdBu_r',
+        vmin=-5,
+        vmax=5,
+        transform=ccrs.PlateCarree()
+    )
+
     cbar = plt.colorbar(img, ax=ax, orientation='vertical', shrink=0.6, pad=0.02)
     cbar.set_label(f"Diferencia de {info['titulo']}")
-
     ax.set_title(f"Diferencia entre Futuro y Presente")
     ax.text(lon - 0.4, lat + 0.1, f'{valor:.1f} {info["unidad"]}', fontsize=13, bbox=dict(facecolor='white'))
 
