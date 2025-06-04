@@ -200,13 +200,13 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
                 ax.add_geometries([geom], crs=ccrs.PlateCarree(), facecolor='none',
                                   edgecolor='black', linewidth=0.5)
             for _, row in gdf_comunas.iterrows():
-                centroid = row.geometry.buffer(0).intersection(bbox).centroid
+                label_point = row.geometry.representative_point()  # punto dentro del polígono pero más centrado y menos superpuesto
                 ax.text(
-                    centroid.x, centroid.y, row['Comuna'],
-                    fontsize=12, color='black',
-                    ha='center', va='center',
-                    bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round',pad=0.2)
-                )
+                    label_point.x, label_point.y, row['Comuna'],
+                    fontsize=10, color='dimgray',
+                    ha='center', va='bottom',
+                    bbox=dict(facecolor='white', alpha=0.4, edgecolor='none', boxstyle='round,pad=0.2'),
+                    zorder=2)
 
             estacional = "Verano extendido (octubre–marzo)" if season == "summer" else "Invierno extendido (abril–septiembre)"
             titulo = f'{info["titulo"]} - {title}\n{estacional}'
