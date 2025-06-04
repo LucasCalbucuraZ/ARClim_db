@@ -200,10 +200,19 @@ def plot_present_future(lat_centro, lon_centro, season, variable):
                 ax.add_geometries([geom], crs=ccrs.PlateCarree(), facecolor='none',
                                   edgecolor='black', linewidth=0.5)
             for _, row in gdf_comunas.iterrows():
-                label_point = row.geometry.representative_point()  # punto dentro del polígono pero más centrado y menos superpuesto
-                # Evita que la etiqueta esté dentro del cuadro del punto central
-                if (x_min <= label_point.x <= x_max) and (y_min <= label_point.y <= y_max):
+
+                # Punto representativo dentro del polígono
+                label_point = row.geometry.representative_point()
+    
+                # Filtro: que no esté muy cerca del cuadro de coordenadas/valor
+                dist = np.sqrt((label_point.x - lon_centro)**2 + (label_point.y - lat_centro)**2)
+                if dist < 0.2:
                     continue
+
+                # Filtro: que esté dentro del bounding box visible
+                if not (lon_min < label_point.x < lon_max and lat_min < label_point.y < lat_max):
+                    continue
+
                 ax.text(
                     label_point.x, label_point.y, row['Comuna'],
                     fontsize=10, color='black',
@@ -431,10 +440,17 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
         ax.add_geometries([geom], crs=ccrs.PlateCarree(), facecolor='none', edgecolor='black', linewidth=2, linestyle='--')
     for geom in gdf_comunas.geometry:
         ax.add_geometries([geom], crs=ccrs.PlateCarree(), facecolor='none', edgecolor='black', linewidth=0.5)
+
     for _, row in gdf_comunas.iterrows():
-        label_point = row.geometry.representative_point()  # punto dentro del polígono pero más centrado y menos superpuesto
-        # Evita que la etiqueta esté dentro del cuadro del punto central
-        if (x_min <= label_point.x <= x_max) and (y_min <= label_point.y <= y_max):
+        # Punto representativo dentro del polígono
+        label_point = row.geometry.representative_point()
+    
+        # Filtro: que no esté muy cerca del cuadro de coordenadas/valor
+        dist = np.sqrt((label_point.x - lon_centro)**2 + (label_point.y - lat_centro)**2)
+        if dist < 0.2:
+            continue
+        # Filtro: que esté dentro del bounding box visible
+        if not (lon_min < label_point.x < lon_max and lat_min < label_point.y < lat_max):
             continue
         ax.text(
             label_point.x, label_point.y, row['Comuna'],
