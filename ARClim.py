@@ -373,7 +373,7 @@ def plot_delta_present_future(lat_centro, lon_centro, season, variable):
     gdf_regiones = gdf_regiones[gdf_regiones.intersects(bbox)].copy()
 
     # === Plot ===
-    fig, ax = plt.subplots(1, 1, figsize=(8.5, 9), subplot_kw={'projection': ccrs.PlateCarree()})
+    fig, ax = plt.subplots(1, 1, figsize=(6.5, 8), subplot_kw={'projection': ccrs.PlateCarree()})
     ax.add_feature(cfeature.OCEAN, facecolor='#a6cee3')
     ax.add_feature(cfeature.LAND, facecolor='#e6e1d3')
     ax.set_extent([lon_min, lon_max, lat_min, lat_max], crs=ccrs.PlateCarree())
